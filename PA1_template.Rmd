@@ -1,20 +1,46 @@
-# Reproducible Research: Peer Assessment 1
+Reproducible Research : Assignment #1
+========================================================
+
+Unzip and Read the activity data
+
+```{r}
+
+unzip('activity.zip')
+activity <- read.csv('activity.csv')
+```
+
+What is mean total number of steps taken per day?
+
+```{r fig.width=7, fig.height=6}
+daily.steps <- with(activity, tapply(steps,date,sum))
+hist(daily.steps)
+mean.steps <- mean(daily.steps, na.rm = TRUE)
+median.steps <- median(daily.steps, na.rm=TRUE)
+```
+
+What is the average daily activity pattern?
+```{r}
+library(ggplot2)
+activity.intervals <- with(activity, tapply(steps,interval,mean, na.rm=TRUE))
+
+activity.intervals <- as.matrix(activity.intervals)
+
+plot(activity.intervals ~ row.names(activity.intervals), type='l')
+
+activity.intervals[which.max(activity.intervals),]
+```
+
+Imputing missing values
+```{r}
+summary(activity)
 
 
-## Loading and preprocessing the data
+```
 
 
+Are there differences in activity patterns between weekdays and weekends?
+```{r}
 
-## What is mean total number of steps taken per day?
-
-
-
-## What is the average daily activity pattern?
+```
 
 
-
-## Imputing missing values
-
-
-
-## Are there differences in activity patterns between weekdays and weekends?
